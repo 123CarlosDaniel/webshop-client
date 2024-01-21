@@ -21,9 +21,10 @@ export class AppComponent {
   title = 'Web Shop';
   cart: Cart = {items: []}
   private cartService = inject(CartService)
+  message: String
   
   ngOnInit() {
-    console.log({test: environment.prueba})
+    this.message = environment.prueba
     this.cartService.cart.subscribe((_cart) => {
       this.cart = _cart
     })
