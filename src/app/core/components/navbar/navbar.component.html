@@ -1,0 +1,72 @@
+<mat-toolbar>
+  <div class="px-16 flex w-[100%] align-middle">
+    <div class="flex items-center space-x-2 cursor-pointer" routerLink="/">
+      <mat-icon svgIcon="webshop"></mat-icon>
+      <span class="text-lg font-semibold tracking-wider align-text-bottom"
+        >Web Shop</span
+      >
+    </div>
+    <span class="flex-auto"></span>
+
+    <div class="flex items-center gap-6">
+      <button mat-button routerLink="admin" color="primary"> 
+        Admin
+      </button>
+      @if (logoutVisible) {
+        <button mat-button (click)="logout()">
+          Log out
+        </button>
+      }
+      @else {
+        <button mat-button routerLink="/"> 
+          Productos
+        </button>
+      }
+      @if (cartButtonVisible && !logoutVisible) {
+        <button mat-stroked-button color="accent" routerLink="cart">
+          Compras
+        </button>
+        <button
+        color="warn"
+        mat-icon-button
+        [mat-menu-trigger-for]="menu"
+        aria-hidden="false"
+      >
+        <mat-icon
+          [matBadge]="itemsQuantity"
+          [matBadgeHidden]="!itemsQuantity"
+          matBadgePosition="after"
+          matBadgeColor="warn"
+          aria-hidden="false"
+        >
+          shopping_cart
+        </mat-icon>
+      </button>
+      }
+    </div>
+  </div>
+
+  <mat-menu #menu="matMenu">
+    <div class="px-3 py-2 divide-y divide-solid">
+      <div class="flex items-center justify-between pb-3">
+        <span class="mr-16">{{itemsQuantity}} items</span>
+        <a routerLink="cart" mat-button color="primary">Ver carrito</a>
+      </div>
+
+      @if (cart.items.length) {
+        <div class="py-3">
+          @for (item of cart.items; track item.id) {
+            <div class="flex justify-between mb-2 font-light">
+              {{item.name}} x {{item.quantity}} <span class="font-bold">{{ item.price | currency }}</span>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="flex justify-between py-3 font-light">
+        Total <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
+      </div>
+
+    </div>
+  </mat-menu>
+</mat-toolbar>

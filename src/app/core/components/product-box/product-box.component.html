@@ -1,0 +1,30 @@
+@if (product) {
+  <mat-card class="w-full" appearance="outlined">
+    <mat-card-header class="mb-2">
+      <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
+      <mat-card-title
+        ><div class="line-clamp-1 hover:line-clamp-none">
+          {{product.name}}
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <div class="flex justify-center">
+      <img
+        [src]="product.imageUrl"
+        class="object-cover h-[200px] overflow-hidden"
+        matCardImage
+      />
+    </div>
+    <mat-card-actions class="flex justify-between">
+      <span class="text-gray-600 ps-2">{{ product.price | currency }}</span>
+      <div>
+        <button mat-icon-button routerLink="/details/{{product.id}}">
+          <mat-icon color="accent">info</mat-icon>
+        </button>
+        <button mat-icon-button (click)="addToCart()">
+          <mat-icon color="primary">shopping_cart</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+}

@@ -1,0 +1,32 @@
+<mat-accordion multi="true">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Categorías</mat-panel-title>
+      <mat-icon color="accent">horizontal_split</mat-icon>
+    </mat-expansion-panel-header>
+    <mat-selection-list color="warn" multiple="false" (selectionChange)="onCategoryChange($event)">
+      @if (categories) {
+        @for (category of categories; track category.id) {
+          <mat-list-option value={{category.name}}>
+            <button class="capitalize">{{category.name}}</button>
+          </mat-list-option>
+        }
+      }
+    </mat-selection-list>
+  </mat-expansion-panel>
+  
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Ordenar por</mat-panel-title>
+      <mat-icon color="accent">sort</mat-icon>
+    </mat-expansion-panel-header>
+    <mat-selection-list color="warn" multiple="false" (selectionChange)="onSortChange($event)">
+      <mat-list-option value="asc">
+        <button>Ascendente</button>
+      </mat-list-option>
+      <mat-list-option value="desc">
+        <button>Descendente</button>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-expansion-panel>
+</mat-accordion>

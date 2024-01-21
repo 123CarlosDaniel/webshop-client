@@ -1,0 +1,50 @@
+@if (product) {
+  <div class="p-6">
+    <mat-card appearance="outlined" class="p-2">
+      <div class="flex">
+        <img
+          [src]="product.imageUrl"
+          class="self-center object-cover overflow-hidden shrink-0 h-[350px] w-[350px]"
+          alt="Image"
+        />
+        <div class="flex flex-col justify-between w-full">
+          <div class="space-y-4">
+            <mat-card-header>
+              <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
+              <mat-card-title>{{product.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                {{product.description}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="flex gap-8">
+              <span class="text-gray-600 ps-2">Precio : {{ product.price | currency }}</span>
+              <button mat-stroked-button class="flex items-center gap-2" (click)="addProduct(product)">
+                Comprar
+                <mat-icon color="primary">shopping_cart</mat-icon>
+              </button>
+            </mat-card-actions>
+          </div>
+          <mat-card-actions>
+            <button mat-stroked-button class="flex items-center gap-2" routerLink="">
+              Volver
+              <mat-icon color="accent">home</mat-icon>
+            </button>
+          </mat-card-actions>
+        </div>
+      </div>
+    </mat-card>
+    @if (moreProducts && moreProducts.length) {
+    <h2 class="mt-4 mb-2 text-lg font-bold text-orange-500">Más productos</h2>
+    <mat-grid-list gutterSize="16" cols="3" rowHeight="410">
+      @for (prod of moreProducts; track prod.id) {
+        <mat-grid-tile>
+          <app-product-box class="self-start w-full" [product]="prod" />
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+    }
+  </div>
+  
+}

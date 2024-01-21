@@ -1,0 +1,16 @@
+<div class="py-8 text-center">
+  <button mat-raised-button color="accent" routerLink="create">
+    Agregar producto
+  </button>
+</div>
+@if (products && products.length) {
+  <div class="p-6">
+    <mat-grid-list gutterSize="16" cols="3" rowHeight="380">
+      @for (product of products; track product.id) {
+      <mat-grid-tile>
+        <app-product-card [product]="product" class="self-start w-full" (updateList)="onUpdateList()"/>
+      </mat-grid-tile>
+      }
+    </mat-grid-list>
+  </div>
+}
