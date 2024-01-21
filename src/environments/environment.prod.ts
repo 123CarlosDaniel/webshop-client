@@ -4,5 +4,6 @@ export const environment = {
   checkoutUrl: process.env['checkoutUrl'],
   authUrl: process.env['authUrl'],
   productsUrl: process.env['productsUrl'],
-  stripePublicToken: process.env['stripePublicToken']
+  stripePublicToken: process.env['stripePublicToken'],
+  prueba: process.env['prueba']
 };
