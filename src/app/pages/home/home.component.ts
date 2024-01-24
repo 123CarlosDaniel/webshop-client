@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs'
 import { Product } from '@models/product.model'
 import { CartService } from '@services/cart.service'
 import { ProductService } from '@services/product.service'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 const ROWS_HEIGHT: {[id: number]: number} = {3: 380, 4: 420}
 
@@ -21,7 +22,8 @@ const ROWS_HEIGHT: {[id: number]: number} = {3: 380, 4: 420}
     FiltersComponent,
     ProductsHeaderComponent,
     MatGridListModule,
-    ProductBoxComponent
+    ProductBoxComponent,
+    MatProgressSpinnerModule
   ],
 })
 export class HomeComponent {
@@ -37,11 +39,17 @@ export class HomeComponent {
   sort = "desc"
 
   rowHeight = ROWS_HEIGHT[this.cols]
+  loading = true
 
   getProducts() {
     this.productSubscription = this.productService.getAllProducts(this.category, this.sort)
-      .subscribe((_products) => {
-        this.products = _products
+      .subscribe({
+        next: (_products) => {
+          this.products = _products
+        },
+        complete: () => {
+          this.loading = false
+        }
       }),
       (err: Error) => {
         console.log(err)
